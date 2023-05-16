@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
-let todos = ref(JSON.parse(window.localStorage.getItem('todos')))
+let todos = ref(JSON.parse(window.localStorage.getItem('todos'))??[])
 let newTodo = ref('')
 function number () {
 todos.value.push({
@@ -21,9 +21,9 @@ watch (todos, function(value){
 </script>
 
 <template>
-<h1>My Todo Application</h1>
+<h1>To Do List (Do It Now)</h1>
 <ul>
-<li v-for="(todo,index ) in todos"> 
+<li v-for="(todo,index ) in todos" :class= "{completed: todo.complete}"> 
 <input type="checkbox" v-model="todo.complete">
 <button @click="deleteTodo(index)">delete</button>
 {{ todo.text }}
@@ -40,6 +40,11 @@ watch (todos, function(value){
  body{
 font-family: 'Times New Roman', Times, serif;
 background-color: rgb(171, 207, 233);
+text-align: center;
+ }
+ .completed{
+    text-decoration: line-through;
+    color: rgb(0, 0, 0);
  }
  
 </style>
