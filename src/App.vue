@@ -29,16 +29,23 @@ function todoFilter(todo){
       return true
     } 
 }
+
+function activeFilter(todo){
+  return todo.complete == false
+}
 </script>
 
 <template>
 <h1>To Do List (Do It Now)</h1>
+<p v-if="todos.length > 0">
 <input name="filter" type="radio" value="all" v-model="filter">
 <label>All</label>
 <input name="filter" type="radio" value="active" v-model="filter">
 <label>Active</label>
 <input name="filter" type="radio" value="completed" v-model="filter">
 <label>Complete</label>
+</p>
+<p>{{ todos.filter(activeFilter).length }} items left</p>
 <ul>
 <li v-for="(todo,index ) in todos.filter(todoFilter)" :class= "{completed: todo.complete}"> 
 <label class="container">
